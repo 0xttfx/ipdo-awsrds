@@ -18,6 +18,12 @@
 
 ## Executando
 
+ Crie diretório `tools` em  `/usr/local` 
+```
+mkdir -p /usr/local/tools/log && cd /usr/local/tools/ && \
+git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
+```
+
  Não há argumentos, bastando executar o .sh
 ```
 ./script-0.3.sh
