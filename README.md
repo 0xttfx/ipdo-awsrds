@@ -1,7 +1,7 @@
 # IPDropSecGroupAWSEC2RDS
 
 ## Função
- Scrip bash para descoberta de IPs de Droplets servers e nós de clusters Kubernetes e inserção destes IPs, no security group EC2 das instâncias AWS RDS.
+ Scrip bash para descoberta de IPs de Droplets Nodes dos clusters Kubernetes e inserção destes IPs, no security group EC2 das instâncias AWS RDS.
 
 ## Dependências
 

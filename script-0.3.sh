@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 ##
 # Autor: Thiago Torres Faioli -  A.K.A: 0xttfx  - thiago@tcpip.net.br
-# Função: Obter os IPs dos IC Droplets DigitalOcean e inseri-los nos 
-# SecurityGroup EC2 das instâncias AWS RDS. 
+# Função: Obter os IPs dos ICs Droplets DOcean dos clusters Kubernetes 
+# e inseri-los nos SecurityGroup EC2 das instâncias AWS RDS. 
 ##
 # Versão: 0.3
 # Data: 11 Out 2023
@@ -43,12 +43,24 @@
 #   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 #####
 
+get-gid (){
+
   #criando array dos IDs dos SecurityGroups EC2 das instâncias AWS RDS
   gid=( $(aws rds describe-db-instances \
           --query "*[].[VpcSecurityGroups]" \
           |grep VpcSecurityGroupId \
           |awk '{ print $2 }'|tr -d '"',',') )
-  
+}
+
+get-id-dok (){
+
+  # Criando array com ID dos clusters Kubernetes DOcean
+  iddok=( $(doctl kubernetes cluster list --no-header \
+	    |awk '{print $1}') )
+}
+
+diff-ips (){
+
   #criando arquivo temp AWS
   awstmpf=$(mktemp /tmp/aws-XXX)
   # criando array com IPs das rules /32 dos security groups RDS
@@ -61,13 +73,16 @@
 
   # criando arquivo temp DO
   dotmpf=$(mktemp /tmp/do-XXX)
-  # criando array de todos IPs DigitalOcean
-  range_ips=( $(doctl compute droplet list | awk '{print $3}' |tr -d [:alpha:]|grep -Ev "^$") )
+  # criando array com os IPs dos Nodes DOK.
+  range_ips=( $(doctl compute droplet list |grep k8s |awk '{print $3}' |tr -d [:alpha:]|grep -Ev "^$") )
   # criando arquivo temp para diff
   echo ${range_ips[@]} | tr ' ' '\n' |sort > ${dotmpf}
 
   diff=( $(diff -Iw ${awstmpf} ${dotmpf}) )
-  
+}  
+
+
+insrem-ip (){
 
   # criano arrays com resultado do diff! Aqui é definido onde está a diferença!
   # se na lista DO ou na lista AWS.
@@ -108,9 +123,18 @@
       done
     done
   fi
+}
+
+rmtemp (){
 
   # apagando arquivos temporários
   rm ${dotmpf}
   rm ${awstmpf}
+}
+
+get-gid
+diff-ips
+insrem-ip
+rmtemp
 
 exit 0
