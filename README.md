@@ -3,6 +3,13 @@
 ## Função
  Scrip bash para descoberta de IPs de Droplets Nodes dos clusters Kubernetes e inserção destes IPs, no security group EC2 das instâncias AWS RDS.
 
+## Atualizações
+ 
+- 0.4v
+
+  - Como inteválo mínimo de execução na CRON são de 60 segundos! E eu precisava executar por mais vezes por minuto
+    acabei contendo o scrip dentro de um laço wile que o executa por 10 vezes com intervalo de 2 segundos 
+
 ## Dependências
 
 - AWS CLI
