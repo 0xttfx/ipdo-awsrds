@@ -36,13 +36,14 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
 
  Não há argumentos, bastando executar o .sh
 ```
-./script-0.3.sh
+./script-0.5.sh
 ```
 
 ## Automação 
 
+
  Para automação da execução, adicione a seguinte linha na cron
- Devido ao update dos nós dos clusters, que alteram os seus IPs, o script será executado a cada 1 mintuo! Por sua vez o scrip, que tem um tempo de execução de 5 segundos, está em um laço wile que o fará executar por 10x com intervalo de 2 segundos entre cada execução...
+ Devido ao update dos nós dos clusters, que alteram os seus IPs, o script será executado a cada 1 mintuo!
  - altere conforme sua necessidade.
 
 ```
