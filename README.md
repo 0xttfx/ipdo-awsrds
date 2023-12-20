@@ -6,9 +6,12 @@
 ## Atualizações
  
 - 0.4v
-
   - Como inteválo mínimo de execução na CRON são de 60 segundos! E eu precisava executar por mais vezes por minuto
     acabei contendo o scrip dentro de um laço wile que o executa por 10 vezes com intervalo de 2 segundos 
+- 0.5v
+  - removido laço de execução a cada 60s
+  - restruturado algumas conditional statement da inserção e remoção de IPs
+  - O diff, antes realizado globalmente, agora é realizado para cada Security Group
 
 ## Dependências
 
@@ -38,9 +41,11 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
 
 ## Automação 
 
- Para automação da execução, adicione a seguinte linha na cron, para uma execução a cada 6 horas, ou modifique...
- Devido ao update dos nós dos clusters, que alteram os seus IPs, o script será executado a cada 2 mintuos, afim de evitar indisponibilidade dos sistemas.
+ Para automação da execução, adicione a seguinte linha na cron
+ Devido ao update dos nós dos clusters, que alteram os seus IPs, o script será executado a cada 1 mintuo! Por sua vez o scrip, que tem um tempo de execução de 5 segundos, está em um laço wile que o fará executar por 10x com intervalo de 2 segundos entre cada execução...
+ - altere conforme sua necessidade.
+
 ```
-*/2 * * * * 	user	/usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.3.sh >> /usr/local/tools/log/exec-script-0.3-$(date --date="today" +\%d\%m\%Y_\%H\%M).log 2>&1
-0 0 * * *       user	find /usr/local/tools/log -type f -mtime +3 -name '*.log' -exec rm {} +
+* * * * * 	user	/usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.5.sh >> /usr/local/tools/log/exec-script-0.5-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
+0 0 * * *   user	find /usr/local/tools/log/ -type f -mtime +3 -name 'exec-*.log' -exec rm {} +
 ```

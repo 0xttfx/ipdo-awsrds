@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-# Autor: Thiago Torres Faioli -  A.K.A: 0xttfx  - faioli@catarse.me
+# Autor: Thiago Torres Faioli -  A.K.A: 0xttfx  - faioli@tcpip.net.br
 # Função: Obter os IPs dos IC Droplets DigitalOcean e inseri-los nos 
 # SecurityGroup EC2 das instâncias AWS RDS. 
 ##
