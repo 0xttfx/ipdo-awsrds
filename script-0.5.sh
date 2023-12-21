@@ -50,7 +50,7 @@
     echo "Variável 'user' não configurada!"
     echo "Edite o script ${0} e declare o nome do usuário IAM"
     echo
-    exit 0
+    exit 1
   fi
 
   #criando array dos IDs dos SecurityGroups EC2 das instâncias AWS RDS
