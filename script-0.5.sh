@@ -43,6 +43,17 @@
 #   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 #####
 
+  # Why root?
+  CheckRoot(){
+    if [ `id -u` = 0 ]; then
+      echo 
+      echo "ERROR: Why are you running this shit as root?"
+      echo
+      exit 1
+    fi
+  }
+  CheckRoot
+ 
   # user profile aws cli
   user=
   if [[ -z "${user}" ]]; then
