@@ -140,6 +140,10 @@
   done
   # apagando arquivos temporários
   rm ${dotmpf}
-  rm /tmp/sg-*
+
+  for rm in ${sg_tmpf[@]}; do
+      rm ${rm}
+  done
+
 exit 0
 
