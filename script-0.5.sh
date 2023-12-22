@@ -106,7 +106,7 @@
       unset listaaws
       listado=( $(echo ${diff[@]} |tr ' ' '\n'|grep -E -A1 '>' |grep -Ev '>|---|--|-') ) 2>/dev/null
       listaaws=( $(echo ${diff[@]} |tr ' ' '\n'|grep -E -A1 '<' |grep -Ev '<|---|--|-') ) 2>/dev/null
-      # se ${listaaws[@]} possui IPs que não existem na DOcean. E por isso, esses IPs
+      # se ${listaaws[@]} possui IPs que não existem na DOcean; esses IPs
       # serão removidos de cada Security Group EC2 RDS
       if [[ ! -z "${listaaws[@]}" ]]; then
         #laço para garantir a execução em todos os grupos
