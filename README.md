@@ -13,6 +13,11 @@
   - restruturado algumas conditional statement da inserção e remoção de IPs
   - O diff, antes realizado globalmente, agora é realizado para cada Security Group
 
+- 0.6v
+  - implementado o builtin *set* com as *options* *errtrace, errexit, nounset e pipefail* para deixar o script mais criterioso quanto a erros. Principalmente os de APIs 5xx sem a necessidade de fazer testes em funções, condições etc...
+  - implementado trap para melhor localização do momento e local do erro.
+
+
 ## Dependências
 
 - AWS CLI
