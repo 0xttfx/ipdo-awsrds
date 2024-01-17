@@ -41,7 +41,7 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
 
  Não há argumentos, bastando executar o .sh
 ```
-./script-0.5.sh
+./script-0.6.sh
 ```
 
 ## Automação 
@@ -52,6 +52,6 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
  - altere conforme sua necessidade.
 
 ```
-* * * * *  user	 /usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.5.sh >> /usr/local/tools/log/exec-script-0.5-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
+* * * * *  user	 /usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.6.sh >> /usr/local/tools/log/exec-script-0.6-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
 0 0 * * *  user  /usr/bin/find /usr/local/tools/log/ -type f -mtime +3 -name 'exec-*.log' -exec rm {} +
 ```
