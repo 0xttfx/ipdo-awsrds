@@ -80,7 +80,7 @@
     echo "Variável 'user' não configurada!"
     echo "Edite o script ${0} e declare o nome do usuário IAM"
     echo
-    exit 0
+    exit 1
   fi
 
   # Verificando se existe algum processo do script
