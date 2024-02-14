@@ -24,6 +24,11 @@
   - Melhorias nos filtros para criação de array IPs
   - Modificado no laço aninhado de inserção e remoção de IP para melhora do parser  
 
+- 0.8v
+  - Implementado tratativa para cod error diff
+  - Implementado arquivo de diff temporário para cada sec. group verificado
+  - Implementado tratativa para cod error na criação de array usando arquivo diff temporário
+  - Implementado remoção de arquivos temporários em cada laço 
 
 ## Dependências
 
@@ -48,7 +53,7 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
 
  Não há argumentos, bastando executar o .sh
 ```
-./script-0.7.sh
+./script-0.8.sh
 ```
 
 ## Automação 
@@ -59,6 +64,6 @@ git clone git@github.com:0xttfx/ip-do_aws-rds.git && cd ip-*
  - altere conforme sua necessidade.
 
 ```
-* * * * *  user	 /usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.7.sh >> /usr/local/tools/log/exec-script-0.7-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
+* * * * *  user	 /usr/bin/bash -x /usr/local/tools/ip-do_aws-rds/script-0.8.sh >> /usr/local/tools/log/exec-script-0.8-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
 0 0 * * *  user  /usr/bin/find /usr/local/tools/log/ -type f -mtime +3 -name 'exec-*.log' -exec rm {} +
 ```
