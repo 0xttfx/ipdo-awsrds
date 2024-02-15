@@ -59,8 +59,8 @@ sudo > /etc/profile.d/path-tools.sh
 Em seguida adicione o conteúdo:
 ```bash
 # configurando PATH para incluir diretório tools caso exista.
-if [ -d "/usr/local/tools" ] ; then
-    PATH="$PATH:/usr/local/tools"
+if [ -d "/usr/local/tools/ipdo-awsrds" ] ; then
+    PATH="$PATH:/usr/local/tools/ipdo-awsrds"
 fi
 Eof
 ```
