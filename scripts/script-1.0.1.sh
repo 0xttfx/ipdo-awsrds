@@ -22,7 +22,7 @@
 
   Pidf(){
     # Variável pidfile
-    pidfile=/tmp/${0}
+    pidfile=/tmp/ipdo-awsrds.pid
     
     # loop para verificação de existência do pidfile e criação em nova execução.
     if [ -f "$pidfile" ]; then
