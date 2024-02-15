@@ -1,4 +1,4 @@
-# IPDropSecGroupAWSEC2RDS
+# ipdo-awsrds
 
 ## Função
  Scrip bash para descoberta dos IPs WAN dos DOcean Droplets e inserção em security groups EC2 das instâncias AWS RDS.
