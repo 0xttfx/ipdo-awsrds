@@ -75,6 +75,6 @@ ipdo-awsrds -u <nome>
  Devido ao update, adição e remoção dos nós dos clusters, o script será executado a cada 1 mintuo!
  - altere conforme sua necessidade.
 ```bash
-* * * * *    /usr/bin/bash -x ipdo-awsrds -u nome >> /usr/local/tools/log/ipdo-awsrds-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
+* * * * *    /usr/bin/bash -x /usr/local/tools/ipdo-awsrds -u nome >> /usr/local/tools/log/ipdo-awsrds-$(date --date="today" +\%d\%m\%Y_\%H\%M\%S).log 2>&1
 0 0 * * *    /usr/bin/find /usr/local/tools/log/ -type f -mtime +5 -name 'exec-*.log' -exec rm {} +
 ```
