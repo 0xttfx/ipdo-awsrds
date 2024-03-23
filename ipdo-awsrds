@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 ##
 # Autor: Thiago Torres Faioli -  A.K.A: 0xttfx  - thiago@tcpip.net.br
 # Função: Obter os IPs dos IC Droplets DigitalOcean e inseri-los nos 
 # SecurityGroup EC2 das instâncias AWS RDS. 
 ##
-# Versão: 1.0
-# Data: 14 de Fevereiro de 2024
+# Versão: 1.0.2
+# Data: 15 de Março de 2024
 # Licença: SPDX-License-Identifier: BSD-3-Clause
 #####################################################################
   
@@ -22,7 +22,7 @@
 
   Pidf(){
     # Variável pidfile
-    pidfile=/tmp/ipdo-awsrds.pid
+    pidfile=/tmp/ipdo-awsrds
     
     # loop para verificação de existência do pidfile e criação em nova execução.
     if [ -f "$pidfile" ]; then
@@ -58,11 +58,11 @@
      # Display Help
      echo " Scrip para update de IPs DOcean em Security Groups AWS EC2 RDS!"
      echo
-     echo " Sintaxe: script [-l|h|v|k|u]"
+     echo " Sintaxe: script [-l|h|d|v|u]"
      echo " Opções:"
      echo " -l        Mostra licença."
      echo " -h        Mostra ajuda."
-     echo " -r        remove arquivos orfãos. Útil quando script para antres de apagar arquivos temporários"
+     echo " -d        remove arquivos orfãos. Útil quando script finaliza antes de apagar arquivos temporários"
      echo " -v        Mostra a versão."
      echo " -u <user> Usuário <user profile aws cli> da API AWS."
      echo
@@ -122,7 +122,6 @@
       - Versão estável para uso em ambiente de produção.
       "
   }
-
 
   if [ -z "$*" ]; then 
     sleep 1
@@ -190,19 +189,28 @@
                          done)
   }
   SGtmpf
-  
+ 
   SGf(){
-    # Gerando lista de IPs das rules /32 de cada SecurityGroups EC2 das instâncias AWS RDS 
+    # Gerando arquivo de lista de IPs das rules de cada SecurityGroups EC2 das instâncias AWS RDS 
     # e inserindo em seus respectivos arquivos temporários
     for sgf in ${sg_tmpf[*]}; do
       sgname=$(sed -E 's/.*(sg-.*)-.*$/\1/' <<< "${sgf}")
       aws --profile "${user}" --output text --no-paginate --no-cli-pager \
       ec2 describe-security-groups --group-id "$sgname" \
       --query "SecurityGroups[].IpPermissions[][].{R:IpRanges}" \
-      | grep -E "/32"|  awk '{print $2}'|sed  's/\/32//'|sort |uniq > "${sgf}"
+      | awk '{print $2}'| sort | uniq > "${sgf}"
     done
   }
-  SGf  
+  SGf
+
+  SGf_s(){
+      # Sanitizando arquivo de lista de IPs de cada SecurityGroups EC2 das instâncias AWS RDS 
+      # para remover IP 0.0.0.0/0 e subnet */16 mantendo apenas regras /32 e removendo o prefixo /32
+      for sgg in ${sg_tmpf[*]}; do
+        sed -Ei 's/.*\/0//;s/.*\/16//;/^[\s\t]*$/d;s/\/32//' ${sgg}
+      done
+  }
+  SGf_s
 
   Rip(){
     # Criando lista de IPs DOcean e populando arquivo temporário
